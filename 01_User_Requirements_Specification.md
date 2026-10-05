@@ -79,3 +79,14 @@ flowchart LR
     %% --- INCLUDE DEPENDENCIES ---
     UC2 -. <<include>> .-> UC1
     UC3 -. <<include>> .-> UC4
+```
+---
+
+## 3. Document Approval & Client Sign-Off
+
+By signing below, the undersigned parties acknowledge that they have reviewed, understood, and approved the user requirements and scope detailed within this User Requirements Specification (URS) document.
+
+| Approval Role | Stakeholder Name | Organization/ Position | Approval Status | Timestamp (SGT) | Digital Sign-Off (Git ID) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Client/ Business Owner** | Uncle Bob | Owner, Grill & Go (Orchard Road) | **APPROVED** | 2026-10-04 14:52 | `@unclebob-grillgo` |
+
