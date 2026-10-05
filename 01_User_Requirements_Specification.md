@@ -6,8 +6,8 @@
 ### Customer Role
 **US-01: View Digital Menu via QR Code**
 *As a Customer, I want to scan a table QR code and view the menu on my mobile browser so that I can see available items without downloading an app.*
-* **Given** I am seated at a table with a unique QR code
-* **When** I scan the QR code using my mobile phone camera
+* **Given** I am seated at a table with a unique QR code.
+* **When** I scan the QR code using my mobile phone camera.
 * **Then** I am redirected to a mobile-optimized web menu displaying available items, prices, and descriptions.
  
 **US-02: Customize and Submit Order**
