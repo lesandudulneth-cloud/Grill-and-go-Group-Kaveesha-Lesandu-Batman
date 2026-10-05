@@ -123,7 +123,6 @@ erDiagram
     ORDERS ||--|| PAYMENTS : has
 ```
 
----
 
 ## 4. API Interface Specifications
 
@@ -181,30 +180,7 @@ erDiagram
 
 ---
 
-## 5. Requirements Traceability Matrix (RTM)
-
-| Raw Req ID | Business Requirement | User Story | Use Case | API / DB Component |
-| :--- | :--- | :--- | :--- | :--- |
-| **BR-01** | Customers scan QR to order without app download | US-01 | View Menu, Customize Order | Mobile Web App, `menu_items` table |
-| **BR-02** | Immediate payment via PayNow/CC prior to kitchen transmission | US-02, US-03 | Place Order & Pay, Process Payment | `POST /api/v1/orders`, `payments` table |
-| **BR-03** | Kitchen views orders on KDS tablet and updates status | US-04 | Manage Order Status | KDS Tablet App, `orders` table |
-| **BR-04** | Store Manager toggles "Out of Stock" in real-time | US-05 | Update Inventory | `PATCH /api/v1/menu/items/{id}`, `menu_items` |
-| **BR-05** | Power BI/Tableau connects directly to DB for analytics | US-06 | Generate Analytics | Direct DB connection to PostgreSQL |
-| **BR-06** | System handles ~30,000 monthly transactions & 100 concurrent sessions | NFR-01 | N/A | API Backend Load Balancing, DB Indexing |
-
----
-
-## 6. Non-Functional Requirements (NFRs)
-
-1. **Performance:** The API backend must handle peak bursts of up to **100 concurrent mobile browser sessions** with a maximum response time of **< 200ms** for menu loading and **< 500ms** for order placement.
-2. **Scalability:** The relational database must be optimized to support **~30,000 monthly transactions** (~1,000/day) without query degradation, utilizing proper indexing on `orders.created_at` and `menu_items.id`.
-3. **Security:** All payment data must be processed via the PCI-DSS compliant PayNow Gateway. **No raw credit card data** shall be stored in the transactional database. Manager and KDS endpoints must be secured via HTTPS and JWT Role-Based Access Control (RBAC).
-4. **Availability:** The system must guarantee **99.9% uptime** during peak operating hours (12 PM – 2 PM and 6 PM – 9 PM).
-5. **Integration:** The PostgreSQL database must expose a read-replica or direct connection string specifically for Power BI/Tableau to ensure BI queries do not impact transactional write performance.
-
----
-
-## 7. Document Approval & Technical Sign-Off
+## 5. Document Approval & Technical Sign-Off
 
 By signing below, the undersigned engineering leads acknowledge that the architecture, schema, and API specifications detailed within this Technical Design Specification (TDS) are technically feasible, scalable to 30,000 monthly transactions, and approved for implementation.
 
