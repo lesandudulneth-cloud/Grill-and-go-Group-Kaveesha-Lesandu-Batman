@@ -208,7 +208,7 @@ erDiagram
 
 By signing below, the undersigned engineering leads acknowledge that the architecture, schema, and API specifications detailed within this Technical Design Specification (TDS) are technically feasible, scalable to 30,000 monthly transactions, and approved for implementation.
 
-| Approval Role | Engineer Name | Project Role | Approval Status | Timestamp (SGT) | Digital Sign-Off (Git ID) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Lead Systems Analyst** | [Your Name] | Systems Analyst/ Author | **APPROVED** | 2026-10-12 16:00 | `@your-github-username` |
-| **Lead Software Engineer** | [Teammate 2 Name] | Software Architect/ Lead Developer | **APPROVED** | 2026-10-12 16:15 | `@teammate2-username` |
+| Approval Role | Engineer Name | Project Role |  Timestamp (SGT) | Digital Sign-Off (Git ID) |
+| :--- | :--- | :--- | :--- | :--- | 
+| **Lead Systems Analyst** | Kaveesha Lakruwan |  **APPROVED** | 2026-10-05 16:00 | @lakruwanb2004-lgtm |
+| **Lead Software Engineer** |  Lesandu Dulneth | **APPROVED** | 2026-10-05 16:15 |  @lesandudulneth-cloud  |
