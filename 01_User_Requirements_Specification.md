@@ -43,46 +43,94 @@
 * **Then** I can view real-time dashboards on revenue, average order value, and peak-hour order volumes.
  
 ---
- 
-## 2. UML Use Case Diagram
+ ## 2. UML Use Case Diagram
  
 ```mermaid
+
+%%{init: {'theme': 'dark'}}%%
+
 flowchart LR
-    %% --- ACTORS ---
-    Customer((Customer))
-    Kitchen((Kitchen Staff))
-    Manager((Store Manager))
-    PayNow((PayNow\nGateway))
-    BI((Power BI /\nTableau))
+
+    %% Human Actors (Circles)
+
+    C(("👤 Customer"))
+
+    KS(("👨‍ Kitchen Staff"))
+
+    SM(("👔 Store Manager"))
  
-    %% --- SYSTEM BOUNDARY ---
-    subgraph GrillAndGo [Grill & Go Ordering System]
+    %% System Actors (Hexagons)
+
+    PN{{"💳 PayNow Gateway"}}
+
+    BI{{"📊 Power BI"}}
+ 
+    %% System Boundary
+
+    subgraph System ["Grill & Go Digital Ordering System"]
+
         direction TB
-        UC1([View Menu])
-        UC2([Customize Order])
-        UC3([Place Order & Pay])
-        UC4([Process Payment])
-        UC5([Manage Order Status])
-        UC6([Update Inventory])
-        UC7([Generate Analytics])
+
+        UC1(["📱 Scan QR Code"])
+
+        UC2(["🍔 Browse Menu"])
+
+        UC3(["🛒 Place Order"])
+
+        UC4(["💸 Make Payment"])
+
+        UC5(["🔄 Update Order Status"])
+
+        UC6(["📦 Toggle Out of Stock"])
+
+        UC7(["📈 View Analytics"])
+
     end
  
-    %% --- PRIMARY ASSOCIATIONS ---
-    Customer --> UC1
-    Customer --> UC2
-    Customer --> UC3
-    Kitchen --> UC5
-    Manager --> UC6
-    BI --> UC7
-    UC3 --> PayNow
+    %% Relationships & Interactions
+
+    C --> UC1
+
+    C --> UC2
+
+    C --> UC3
  
-    %% --- INCLUDE DEPENDENCIES ---
-    UC2 -. <<include>> .-> UC1
-    UC3 -. <<include>> .-> UC4
+    UC3 -.->|<<include>>| UC4
+
+    UC4 --> PN
+ 
+    KS --> UC5
+ 
+    SM --> UC6
+
+    SM --> UC7
+
+    UC7 --> BI
+ 
 ```
+## 3. Requirements Traceability Matrix (RTM)
+
+| Raw Req ID | Business Requirement | User Story | Use Case | API / DB Component |
+| :--- | :--- | :--- | :--- | :--- |
+| **BR-01** | Customers scan QR to order without app download | US-01 | View Menu, Customize Order | Mobile Web App, `menu_items` table |
+| **BR-02** | Immediate payment via PayNow/CC prior to kitchen transmission | US-02, US-03 | Place Order & Pay, Process Payment | `POST /api/v1/orders`, `payments` table |
+| **BR-03** | Kitchen views orders on KDS tablet and updates status | US-04 | Manage Order Status | KDS Tablet App, `orders` table |
+| **BR-04** | Store Manager toggles "Out of Stock" in real-time | US-05 | Update Inventory | `PATCH /api/v1/menu/items/{id}`, `menu_items` |
+| **BR-05** | Power BI/Tableau connects directly to DB for analytics | US-06 | Generate Analytics | Direct DB connection to PostgreSQL |
+| **BR-06** | System handles ~30,000 monthly transactions & 100 concurrent sessions | NFR-01 | N/A | API Backend Load Balancing, DB Indexing |
+
 ---
 
-## 3. Document Approval & Client Sign-Off
+## 4. Non-Functional Requirements (NFRs)
+
+1. **Performance:** The API backend must handle peak bursts of up to **100 concurrent mobile browser sessions** with a maximum response time of **< 200ms** for menu loading and **< 500ms** for order placement.
+2. **Scalability:** The relational database must be optimized to support **~30,000 monthly transactions** (~1,000/day) without query degradation, utilizing proper indexing on `orders.created_at` and `menu_items.id`.
+3. **Security:** All payment data must be processed via the PCI-DSS compliant PayNow Gateway. **No raw credit card data** shall be stored in the transactional database. Manager and KDS endpoints must be secured via HTTPS and JWT Role-Based Access Control (RBAC).
+4. **Availability:** The system must guarantee **99.9% uptime** during peak operating hours (12 PM – 2 PM and 6 PM – 9 PM).
+5. **Integration:** The PostgreSQL database must expose a read-replica or direct connection string specifically for Power BI/Tableau to ensure BI queries do not impact transactional write performance.
+
+
+## 5. Document Approval & Client Sign-Off
 
 By signing below, the undersigned parties acknowledge that they have reviewed, understood, and approved the user requirements and scope detailed within this User Requirements Specification (URS) document.
 
